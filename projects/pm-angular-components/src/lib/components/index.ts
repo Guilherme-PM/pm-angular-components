@@ -1,0 +1,1 @@
+export * from './pm-table/pm-table.component';

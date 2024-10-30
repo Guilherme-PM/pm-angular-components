@@ -1,0 +1,54 @@
+<ng-content select="[selector]"></ng-content>
+
+<p-table #pmTable
+         [columns]="pmTableConfig.columns"
+         [value]="pmTableConfig.data"
+         styleClass="p-datatable-striped"
+         [rowHover]="true"
+         [tableStyle]="{'min-width': '50rem'}"
+         [globalFilterFields]="globalLabelsFilter">
+  
+  <ng-template pTemplate="caption">
+    <div class="flex justify-content-between">
+      @if (pmTableConfig.columnFilter) {
+        <p-button [label]="translation.clear" (click)="clearFilters(pmTable)" [outlined]="true" icon="pi pi-filter-slash"></p-button>
+      }
+  
+      @if (pmTableConfig.globalFilter) {
+        <span class="p-input-icon-left ml-auto">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" [(ngModel)]="searchValue" (input)="onFilterGlobal($event)" [placeholder]="translation.globalFilters" />
+        </span>
+      }
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      @for (col of pmTableConfig.columns; track col.id) {
+        <th pSortableColumn="{{ col.id }}">          
+          @if (pmTableConfig.sortIcons) {
+            <p-sortIcon *ngIf="col.type !== 'boolean'" field="{{ col.id }}"></p-sortIcon>
+          }
+
+          @if (pmTableConfig.columnFilter) {
+            <p-columnFilter type="{{ col.type ? col.type : 'text' }}" field="{{ col.id }}" display="menu"></p-columnFilter>
+          }
+
+          {{ col.label }}
+        </th>
+      }
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-data>
+    <tr>
+      @for (col of pmTableConfig.columns; track col.id) {
+        <td>
+          {{ data[col.id] }}
+        </td>
+      }
+    </tr>
+  </ng-template>
+
+</p-table>
