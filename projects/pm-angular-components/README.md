@@ -17,6 +17,10 @@ Apenas adicionar no imports a `PmTable`.
 ## Exemplo de configuração
 
 config: PmTableConfig = {
+  columnFilter: true,
+  sortIcons: true,
+  globalFilter: true,
+  language: 'en',
   columns: [
     { id: 'name', label: 'Name', type: 'text' },
     { id: 'age', label: 'Age', type: 'numeric' }
@@ -24,9 +28,5 @@ config: PmTableConfig = {
   data: [
     { name: 'John Doe', age: 30 },
     { name: 'Jane Smith', age: 25 }
-  ],
-  columnFilter: true,
-  sortIcons: true,
-  globalFilter: true,
-  language: 'en'
+  ]
 };

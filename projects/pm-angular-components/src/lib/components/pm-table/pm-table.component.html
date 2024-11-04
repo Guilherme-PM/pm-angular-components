@@ -5,26 +5,37 @@
          [value]="pmTableConfig.data"
          styleClass="p-datatable-striped"
          [rowHover]="true"
-         [tableStyle]="{'min-width': '50rem'}"
-         [globalFilterFields]="globalLabelsFilter">
+         [tableStyle]="{'min-width': '60rem'}"
+         [globalFilterFields]="globalLabelsFilter"
+         [dataKey]="pmTableConfig.id">
   
-  <ng-template pTemplate="caption">
-    <div class="flex justify-content-between">
-      @if (pmTableConfig.columnFilter) {
-        <p-button [label]="translation.clear" (click)="clearFilters(pmTable)" [outlined]="true" icon="pi pi-filter-slash"></p-button>
-      }
-  
-      @if (pmTableConfig.globalFilter) {
-        <span class="p-input-icon-left ml-auto">
-          <i class="pi pi-search"></i>
-          <input pInputText type="text" [(ngModel)]="searchValue" (input)="onFilterGlobal($event)" [placeholder]="translation.globalFilters" />
-        </span>
-      }
-    </div>
-  </ng-template>
+  @if(pmTableConfig.displayCaption){
+    <ng-template pTemplate="caption">
+      <div class="flex justify-content-between">
+        @if (pmTableConfig.columnFilter) {
+          <p-button [label]="translation.clear" (click)="clearFilters(pmTable)" [outlined]="true" icon="pi pi-filter-slash"></p-button>
+        }
+    
+        @if (pmTableConfig.globalFilter) {
+          <span class="p-input-icon-left ml-auto">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" [(ngModel)]="searchValue" (input)="onFilterGlobal($event)" [placeholder]="translation.globalFilters" />
+          </span>
+        }
+      </div>
+    </ng-template>
+  }
 
   <ng-template pTemplate="header">
     <tr>
+      @if(pmTableConfig.subTableConfig){
+        <th style="width: 5rem"></th>
+      }
+      @if (pmTableConfig.buttons) {
+        <th>
+          {{ translation.actions }}
+        </th>
+      }
       @for (col of pmTableConfig.columns; track col.id) {
         <th pSortableColumn="{{ col.id }}">          
           @if (pmTableConfig.sortIcons) {
@@ -41,14 +52,69 @@
     </tr>
   </ng-template>
 
-  <ng-template pTemplate="body" let-data>
+  <ng-template pTemplate="body" let-data let-expanded="expanded">
     <tr>
+      @if (pmTableConfig.subTableConfig) {
+        <td>
+          <p-button type="button" pRipple [pRowToggler]="data" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+        </td>
+      }
+      @if (pmTableConfig.buttons) {
+        <td>
+          @for (button of pmTableConfig.buttons; track button.title){
+            <p-button class="mr-1" pRipple [title]="button.title" [icon]="button.icon" (click)="button.action(data)"
+            [raised]="button.options === 'raised' ? true : null"
+            [outlined]="button.options === 'outlined' ? true : null"
+            [text]="button.options === 'onlyText' ? true : null"
+            [severity]="button.severity || 'primary'"></p-button>
+          }
+        </td>
+      }
       @for (col of pmTableConfig.columns; track col.id) {
         <td>
-          {{ data[col.id] }}
+          {{ (col.prefix || '') + data[col.id] + (col.suffix || '') }}
         </td>
       }
     </tr>
   </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+        <td [attr.colspan]="pmTableConfig.columns.length || 1">Nenhum dado disponível.</td>
+    </tr>
+  </ng-template>
+  <!-- Configuração da SubTabela (Por enquanto está manual) -->
 
+  @if (pmTableConfig.subTableConfig && pmTableConfig.subTableId){
+    <ng-template pTemplate="rowexpansion" let-row>
+      <tr>
+        <td [attr.colspan]="(pmTableConfig.columns.length + (pmTableConfig.buttons ? 1 : 0) + (pmTableConfig.subTableConfig ? 1 : 0))">
+          @if(pmTableConfig.subTableId && row[pmTableConfig.subTableId]){
+            <p-table [value]="row[pmTableConfig.subTableId]" dataKey="id" styleClass="p-datatable-gridlines">
+              <ng-template pTemplate="header">
+                  <tr>
+                      <th *ngFor="let subCol of pmTableConfig.subTableConfig?.columns">
+                          {{ subCol.label }}
+                      </th>
+                  </tr>
+              </ng-template>
+
+              <ng-template pTemplate="body" let-subRow>
+                  <tr>
+                      <td *ngFor="let subCol of pmTableConfig.subTableConfig?.columns">
+                          {{ subRow[subCol.id] }}
+                      </td>
+                  </tr>
+              </ng-template>
+
+              <ng-template pTemplate="emptymessage">
+                  <tr>
+                      <td [attr.colspan]="pmTableConfig.subTableConfig.columns.length || 1">Nenhum dado disponível.</td>
+                  </tr>
+              </ng-template>
+            </p-table>
+          }
+        </td>
+      </tr>
+    </ng-template>
+  }
 </p-table>

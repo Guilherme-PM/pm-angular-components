@@ -1,6 +1,13 @@
-import { PmTableColumnsConfig } from "./pm-table-columns";
+import { PmButtonsConfig } from "./pm-table-buttons-config";
+import { PmTableColumnsConfig } from "./pm-table-columns-config";
 
 export class PmTableConfig {
+  /**
+   * Propriedade para deixar um identificador único na tabela
+   * Property to set a unique identifier in the table
+   */
+  public id!: string;
+
   /**
    * Propriedade para carregar os dados na tabela
    * Property to load data into the table
@@ -11,13 +18,13 @@ export class PmTableConfig {
    * Colunas que irão ser exibidas na tabela
    * Columns that will be displayed in the table
    */
-  public selectedColumns?: any;
+  public selectedColumns?: PmTableColumnsConfig[] = [];
 
   /**
    * Todas as colunas que existem na tabela
    * All columns that exist in the table
    */
-  public columns!: PmTableColumnsConfig[];
+  public columns: PmTableColumnsConfig[] = [];
 
   /**
    * Ícone para ordenação crescente e decrescente
@@ -43,7 +50,33 @@ export class PmTableConfig {
    */
   public language?: 'en' | 'pt-br' = 'en';
 
+  /**
+   * Campo para exibir o título da tabela
+   * Field to display the table title
+   */
+  public displayCaption?: boolean = true;
+
+  /**
+   * Campo para exibir botões
+   * Field to display buttons
+   */
+  public buttons?: PmButtonsConfig[];
+
+  /**
+   * Campo para configurar a subtabela
+   * Field to configure the subtable
+   */
+  public subTableConfig?: PmTableConfig;
+
+  /**
+   * Campo para exibir os dados filhos em uma subtabela
+   * Field to display child data in a subtable
+   */
+  public subTableId?: string;
+
   constructor(config?: Partial<PmTableConfig>) {
+    this.columns = config?.columns ?? [];
+
     Object.assign(this, config);
   }
 }
