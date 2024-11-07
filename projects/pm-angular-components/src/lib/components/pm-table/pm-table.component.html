@@ -72,14 +72,22 @@
       }
       @for (col of pmTableConfig.columns; track col.id) {
         <td>
-          {{ (col.prefix || '') + data[col.id] + (col.suffix || '') }}
+          @if( col.type == 'boolean' ){
+            @if(data[col.id] == true){
+              <i [ngClass]="pmConfig.booleanIcons?.trueIcon + ' text-green-500'"></i>
+            } @else {
+              <i [ngClass]="pmConfig.booleanIcons?.falseIcon + ' text-red-500'"></i>
+            }
+          } @else {
+            {{ (col.prefix || '') + data[col.id] + (col.suffix || '') }}
+          }
         </td>
       }
     </tr>
   </ng-template>
   <ng-template pTemplate="emptymessage">
     <tr>
-        <td [attr.colspan]="pmTableConfig.columns.length || 1">Nenhum dado disponível.</td>
+      <td [attr.colspan]="pmTableConfig.columns.length || 1">Nenhum dado disponível.</td>
     </tr>
   </ng-template>
   <!-- Configuração da SubTabela (Por enquanto está manual) -->

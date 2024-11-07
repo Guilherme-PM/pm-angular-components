@@ -14,6 +14,8 @@ import { CalendarModule } from 'primeng/calendar';
 import { ErrorHandlerService } from '../../services/error/error-handler.service';
 import { PrimeNGConfig } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
+import { PmConfig } from '../../models/pm-table/pm-config';
+import { PmConfigService } from '../../services/pm-config/pm-config.service';
 
 @Component({
   selector: 'pm-table',
@@ -34,10 +36,12 @@ export class PmTable implements OnInit {
   public data?: string;
   
   searchValue: string | undefined;
+  public pmConfig: PmConfig = new PmConfig();
 
   constructor(
     private errorHadlerSvc: ErrorHandlerService,
-    private primengConfig: PrimeNGConfig) { }
+    private primengConfig: PrimeNGConfig,
+    private pmConfigSvc: PmConfigService) { }
 
   ngOnInit(): void {
     this.setTranslation();
@@ -47,8 +51,7 @@ export class PmTable implements OnInit {
     if(this.data)
       this.pmTableConfig.data = this.data;
 
-
-    console.log(this.pmTableConfig);
+    this.pmConfig = this.pmConfigSvc.getConfig();
   }
 
   get globalLabelsFilter(): string[] {
