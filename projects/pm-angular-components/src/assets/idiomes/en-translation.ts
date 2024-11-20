@@ -6,7 +6,10 @@ export const translationEN: Translation = {
   error: 'Error',
   warn: 'Warning',
   listError: {
-    displayCaptionGlobalFilter: 'The globalFilter option was overridden because the displayCaption setting is set to false'
+    displayCaptionGlobalFilter: 'The globalFilter option was overridden because the displayCaption setting is set to false',
+    invalidCurrencyColumnMessage: 'The column type must be "numeric" when it has the "currency" attribute. Incorrect column: ',
+    unnecessaryParameterWarning: 'Unnecessary parameter detected. Parameter: ',
+    missingSubTableConfiguration: 'The "subTableId" parameter was not provided; it is required for the proper functioning of the subtable.'
   },
   actions: 'Actions',
   

@@ -29,7 +29,27 @@ export class PmTableColumnsConfig {
    */
   public suffix?: string = '';
 
+  /**
+   * Opção para transformar a coluna em valor monetário
+   * Option to format the column as a monetary value
+   */
+  public currency?: string;
+
+  /**
+   * Opção para criar uma tag em volta do item exibido em tela
+   * Option to add a tag around the displayed item
+   * @param item O item da linha atual.
+   * @returns Um objeto `TagConfig` contendo opções como `hexCode` e/ou `iconClass`.
+   */
+  public tag?: (item: any) => TagConfig;
+
   constructor(config?: Partial<PmTableColumnsConfig>) {
-      Object.assign(this, config);
+    // Inicializa as propriedades a partir do config, caso fornecido
+    Object.assign(this, config);
   }
+}
+
+export interface TagConfig {
+  hexCode: string;
+  iconClass?: string;
 }

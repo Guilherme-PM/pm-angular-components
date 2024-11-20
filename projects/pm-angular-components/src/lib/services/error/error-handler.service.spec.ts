@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ErrorHandlerService } from './error-handler.service';
+import { ErrorHandlerService } from '../pm-config/error-handler.service';
 
 describe('ErrorHandlerService', () => {
   let service: ErrorHandlerService;

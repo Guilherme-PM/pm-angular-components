@@ -78,6 +78,9 @@ export interface Translation {
 
 export interface TranslationErrors {
   displayCaptionGlobalFilter: string;
+  invalidCurrencyColumnMessage: string;
+  unnecessaryParameterWarning: string;
+  missingSubTableConfiguration: string;
 }
 
 export interface Aria {

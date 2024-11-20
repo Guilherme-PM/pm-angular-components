@@ -72,14 +72,36 @@
       }
       @for (col of pmTableConfig.columns; track col.id) {
         <td>
-          @if( col.type == 'boolean' ){
-            @if(data[col.id] == true){
-              <i [ngClass]="pmConfig.booleanIcons?.trueIcon + ' text-green-500'"></i>
+          @if(data[col.id] != null && data[col.id] !== undefined){
+            @if( col.type == 'boolean' ){
+              @if(data[col.id] == true){
+                <i [ngClass]="pmConfig.booleanIcons?.trueIcon + ' text-green-500'"></i>
+              } @else {
+                <i [ngClass]="pmConfig.booleanIcons?.falseIcon + ' text-red-500'"></i>
+              }
             } @else {
-              <i [ngClass]="pmConfig.booleanIcons?.falseIcon + ' text-red-500'"></i>
+              @if(col.currency) {
+                @if(col.tag){
+                  <p-tag 
+                    [value]="(col.prefix || '') + (data[col.id] | currency: col.currency) + (col.suffix || '')" 
+                    [style]="{ background: col.tag(data).hexCode, color: darkenColor(col.tag(data).hexCode) }" 
+                    [icon]="col.tag(data).iconClass || ''">
+                  </p-tag>
+                } @else {
+                  {{ (col.prefix || '') + (data[col.id] | currency: col.currency) + (col.suffix || '') }}
+                }
+              } @else {
+                @if(col.tag){
+                  <p-tag 
+                    [value]="(col.prefix || '') + data[col.id] + (col.suffix || '')" 
+                    [style]="{ background: col.tag(data), color: darkenColor(col.tag(data).hexCode) }" 
+                    [icon]="col.tag(data).iconClass || ''">
+                  </p-tag>
+                } @else {
+                  {{ (col.prefix || '') + data[col.id] + (col.suffix || '') }}
+                }
+              }          
             }
-          } @else {
-            {{ (col.prefix || '') + data[col.id] + (col.suffix || '') }}
           }
         </td>
       }
@@ -99,25 +121,25 @@
           @if(pmTableConfig.subTableId && row[pmTableConfig.subTableId]){
             <p-table [value]="row[pmTableConfig.subTableId]" dataKey="id" styleClass="p-datatable-gridlines">
               <ng-template pTemplate="header">
-                  <tr>
-                      <th *ngFor="let subCol of pmTableConfig.subTableConfig?.columns">
-                          {{ subCol.label }}
-                      </th>
-                  </tr>
+                <tr>
+                  <th *ngFor="let subCol of pmTableConfig.subTableConfig?.columns">
+                    {{ subCol.label }}
+                  </th>
+                </tr>
               </ng-template>
 
               <ng-template pTemplate="body" let-subRow>
-                  <tr>
-                      <td *ngFor="let subCol of pmTableConfig.subTableConfig?.columns">
-                          {{ subRow[subCol.id] }}
-                      </td>
-                  </tr>
+                <tr>
+                  <td *ngFor="let subCol of pmTableConfig.subTableConfig?.columns">
+                    {{ subRow[subCol.id] }}
+                  </td>
+                </tr>
               </ng-template>
 
               <ng-template pTemplate="emptymessage">
-                  <tr>
-                      <td [attr.colspan]="pmTableConfig.subTableConfig.columns.length || 1">Nenhum dado disponível.</td>
-                  </tr>
+                <tr>
+                  <td [attr.colspan]="pmTableConfig.subTableConfig.columns.length || 1">Nenhum dado disponível.</td>
+                </tr>
               </ng-template>
             </p-table>
           }

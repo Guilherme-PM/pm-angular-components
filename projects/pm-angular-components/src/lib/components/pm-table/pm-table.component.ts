@@ -11,16 +11,19 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
-import { ErrorHandlerService } from '../../services/error/error-handler.service';
 import { PrimeNGConfig } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { PmConfig } from '../../models/pm-table/pm-config';
 import { PmConfigService } from '../../services/pm-config/pm-config.service';
+import { ErrorHandlerService } from '../../services/error/error-handler.service';
+import { ToastModule } from 'primeng/toast';
+import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'pm-table',
   standalone: true,
-  imports: [RippleModule, TableModule, CommonModule, ButtonModule, InputTextModule, MultiSelectModule, DropdownModule, FormsModule, CalendarModule],
+  imports: [RippleModule, TableModule, CommonModule, ButtonModule, InputTextModule, MultiSelectModule, DropdownModule, FormsModule, 
+            CalendarModule, ToastModule, TagModule],
   templateUrl: './pm-table.component.html',
   styleUrl: './pm-table.component.scss'
 })
@@ -79,7 +82,7 @@ export class PmTable implements OnInit {
 
   darkenColor(color: string): string {
     const num = parseInt(color.replace("#", ""), 16),
-      amt = Math.round(2.55 * 20);
+      amt = Math.round(2.55 * 60);
     const R = (num >> 16) - amt;
     const G = ((num >> 8) & 0x00ff) - amt;
     const B = (num & 0x0000ff) - amt;

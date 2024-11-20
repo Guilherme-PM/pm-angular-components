@@ -6,7 +6,10 @@ export const translationPTBR: Translation = {
   error: 'Erro',
   warn: 'Aviso',
   listError: {
-    displayCaptionGlobalFilter: 'A opção globalFilter foi anulada por conta da configuração displayCaption estar como false'
+    displayCaptionGlobalFilter: 'A opção globalFilter foi anulada por conta da configuração displayCaption estar como false',
+    invalidCurrencyColumnMessage: 'O tipo da coluna deve ser "numeric" quando possuir o atributo "currency". Coluna incorreta: ',
+    unnecessaryParameterWarning: 'Parâmetro desnecessário detectado. Parâmetro: ',
+    missingSubTableConfiguration: 'O parâmetro "subTableId" não foi passado, ele é obrigatório para o funcionamento correto da subtabela'
   },
   actions: 'Ações',
 
