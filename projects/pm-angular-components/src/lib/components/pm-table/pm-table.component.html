@@ -38,6 +38,8 @@
       }
       @for (col of pmTableConfig.columns; track col.id) {
         <th pSortableColumn="{{ col.id }}">          
+          {{ col.label }}
+
           @if (pmTableConfig.sortIcons) {
             <p-sortIcon *ngIf="col.type !== 'boolean'" field="{{ col.id }}"></p-sortIcon>
           }
@@ -45,8 +47,6 @@
           @if (pmTableConfig.columnFilter) {
             <p-columnFilter type="{{ col.type ? col.type : 'text' }}" field="{{ col.id }}" display="menu"></p-columnFilter>
           }
-
-          {{ col.label }}
         </th>
       }
     </tr>

@@ -74,6 +74,8 @@ export class PmTableConfig {
    */
   public subTableId?: string;
 
+  public type!: 'table';
+
   constructor(config?: Partial<PmTableConfig>) {
     this.columns = config?.columns ?? [];
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PmConfig } from '../../models/pm-table/pm-config';
+import { PmConfig } from '../../models/pm-config';
 
 @Injectable({
   providedIn: 'root'

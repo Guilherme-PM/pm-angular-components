@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { PrimeNGConfig } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
-import { PmConfig } from '../../models/pm-table/pm-config';
+import { PmConfig } from '../../models/pm-config';
 import { PmConfigService } from '../../services/pm-config/pm-config.service';
 import { ErrorHandlerService } from '../../services/error/error-handler.service';
 import { ToastModule } from 'primeng/toast';

@@ -1,0 +1,26 @@
+<p-panel [header]="pmFormConfig.title" styleClass="text-3xl min-h-96">
+  @if(pmFormConfig.cards != null){
+    @for(card of pmFormConfig.cards; track card.name){
+      <div class="mt-5">
+        <pm-card [pmCardConfig]="card">
+          @for (field of card.fields; track field) {
+            @if (isInputText(field)) {
+              <pm-input-text [pmInputTextConfig]="field"></pm-input-text>
+            } @else if (isTable(field)) {
+              <pm-table [pmTableConfig]="field"></pm-table>
+            }
+          }
+        </pm-card>
+      </div>
+    }
+  }
+  @else {
+    @for (field of pmFormConfig.fields; track field) {
+      @if (isInputText(field)) {
+        <pm-input-text [pmInputTextConfig]="field"></pm-input-text>
+      } @else if (isTable(field)) {
+        <pm-table [pmTableConfig]="field"></pm-table>
+      }
+    }
+  } 
+</p-panel>
