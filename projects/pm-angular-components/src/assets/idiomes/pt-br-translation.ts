@@ -2,7 +2,7 @@ import { Translation } from "../../lib/models/translation";
 
 export const translationPTBR: Translation = {
   clear: 'Limpar',
-  globalFilters: 'Filtros Globais',
+  search: 'Pesquisar',
   error: 'Erro',
   warn: 'Aviso',
   listError: {

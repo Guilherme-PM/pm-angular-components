@@ -17,10 +17,12 @@
         }
     
         @if (pmTableConfig.globalFilter) {
-          <span class="p-input-icon-left ml-auto">
-            <i class="pi pi-search"></i>
-            <input pInputText type="text" [(ngModel)]="searchValue" (input)="onFilterGlobal($event)" [placeholder]="translation.globalFilters" />
-          </span>
+          <p-iconfield iconPosition="left" class="ml-auto">
+            <p-inputicon>
+              <i class="pi pi-search"></i>
+            </p-inputicon>
+            <input #searchBox pInputText type="text" [(ngModel)]="searchValue" (input)="onFilterGlobal($event)" [placeholder]="translation.search" />
+          </p-iconfield>
         }
       </div>
     </ng-template>
@@ -28,6 +30,11 @@
 
   <ng-template pTemplate="header">
     <tr>
+      @if(pmTableConfig.checkbox){
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox />
+        </th>
+      }
       @if(pmTableConfig.subTableConfig){
         <th style="width: 5rem"></th>
       }
@@ -40,12 +47,12 @@
         <th pSortableColumn="{{ col.id }}">          
           {{ col.label }}
 
-          @if (pmTableConfig.sortIcons) {
-            <p-sortIcon *ngIf="col.type !== 'boolean'" field="{{ col.id }}"></p-sortIcon>
-          }
-
           @if (pmTableConfig.columnFilter) {
             <p-columnFilter type="{{ col.type ? col.type : 'text' }}" field="{{ col.id }}" display="menu"></p-columnFilter>
+          }
+
+          @if (pmTableConfig.sortIcons) {
+            <p-sortIcon *ngIf="col.type !== 'boolean'" field="{{ col.id }}"></p-sortIcon>
           }
         </th>
       }
@@ -54,6 +61,11 @@
 
   <ng-template pTemplate="body" let-data let-expanded="expanded">
     <tr>
+      @if(pmTableConfig.checkbox){
+        <td style="width: 3rem">
+          <p-tableCheckbox [value]="data" />
+        </td>
+      }
       @if (pmTableConfig.subTableConfig) {
         <td>
           <p-button type="button" pRipple [pRowToggler]="data" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />

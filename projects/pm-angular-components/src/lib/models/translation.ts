@@ -1,6 +1,6 @@
 export interface Translation {
   clear: string;
-  globalFilters: string;
+  search: string;
   error: string;
   warn: string;
   listError: TranslationErrors;

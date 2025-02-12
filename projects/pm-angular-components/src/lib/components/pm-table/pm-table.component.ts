@@ -11,21 +11,22 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
-import { PrimeNGConfig } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { PmConfig } from '../../models/pm-config';
 import { PmConfigService } from '../../services/pm-config/pm-config.service';
 import { ErrorHandlerService } from '../../services/error/error-handler.service';
 import { ToastModule } from 'primeng/toast';
 import { TagModule } from 'primeng/tag';
+import { PrimeNG } from 'primeng/config';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 @Component({
-  selector: 'pm-table',
-  standalone: true,
-  imports: [RippleModule, TableModule, CommonModule, ButtonModule, InputTextModule, MultiSelectModule, DropdownModule, FormsModule, 
-            CalendarModule, ToastModule, TagModule],
-  templateUrl: './pm-table.component.html',
-  styleUrl: './pm-table.component.scss'
+    selector: 'pm-table',
+    standalone: true,
+    imports: [IconFieldModule, InputIconModule, FormsModule, RippleModule, TableModule, CommonModule, ButtonModule, InputTextModule, MultiSelectModule, DropdownModule, CalendarModule, ToastModule, TagModule],
+    templateUrl: './pm-table.component.html',
+    styleUrl: './pm-table.component.scss'
 })
 export class PmTable implements OnInit {
   public translation: Translation = {} as Translation;
@@ -41,9 +42,10 @@ export class PmTable implements OnInit {
   searchValue: string | undefined;
   public pmConfig: PmConfig = new PmConfig();
 
+
   constructor(
     private errorHadlerSvc: ErrorHandlerService,
-    private primengConfig: PrimeNGConfig,
+    private primengConfig: PrimeNG,
     private pmConfigSvc: PmConfigService) { }
 
   ngOnInit(): void {

@@ -2,7 +2,7 @@ import { Translation } from "../../lib/models/translation";
 
 export const translationEN: Translation = {
   clear: 'Clear',
-  globalFilters: 'Global Filters',
+  search: 'Search',
   error: 'Error',
   warn: 'Warning',
   listError: {

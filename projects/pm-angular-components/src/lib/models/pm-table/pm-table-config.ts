@@ -74,6 +74,16 @@ export class PmTableConfig {
    */
   public subTableId?: string;
 
+  /**
+   * Campo para exibir um checkbox no início da tabela para seleção de itens
+   */
+  public checkbox?: boolean;
+
+  /**
+   * Campo para exibir um botão de exportação para excel
+   */
+  public exportExcel?: boolean;
+
   public type!: 'table';
 
   constructor(config?: Partial<PmTableConfig>) {

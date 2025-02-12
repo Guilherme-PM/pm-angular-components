@@ -29,7 +29,7 @@ export class PmButtonsConfig {
    * Campo para definir a cor do botão de acordo com a gravidade
    * Field to set the button color based on severity
    */
-  public severity?: 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'help' | 'danger';
+  public severity?: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast';
 
   constructor(config?: Partial<PmButtonsConfig>) {
     this.icon = config?.icon ?? '';
